@@ -1,7 +1,8 @@
+import pandas as pd
 import dominate
 from dominate.tags import *
 
-dom = dominate.document(title='Dominate your HTML')
+dom = dominate.document(title='Eleicao')
 doc = open("index.html", "w") 
 
 
