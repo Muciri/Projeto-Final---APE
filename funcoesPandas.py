@@ -61,8 +61,6 @@ def gerarMenuInterativo(df):
                     print(buscarCandidato(df, num_candidato))
                 case '3':
                     funcoesDominate.criarPagina(qtdCargos(df), partidoPrefeito(df), pegarCandidatosPorIdade(df))
-
-                    funcoesDominate.criarPagina(qtdCargos(df), pegarCandidatosPorIdade(df))
                 case '4':
                     print('fim do programa...')
                     break
@@ -91,11 +89,10 @@ def qtdCargos(df):
         elif id == 13:
             vereador += 1
 
-    return [prefeito, vicePrefeito, vereador]
 
     return [["Quantidade de Candidatos por Cargo"],
             ["Prefeitos", "Vice-prefeitos", "Vereadores"],
-            [pref, vpref, ver]]
+            [prefeito, vicePrefeito, vereador]]
 #region Partido por Prefeito
 
 
@@ -217,6 +214,8 @@ def contadorEstadoCivil(df):
     return estadoCivil
 
 
+
+    
 
 
 
