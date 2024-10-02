@@ -47,3 +47,4 @@ def gerarGrade(array):
         div(array[0], cls="col-span-2 bg-gray-200 text-center font-bold text-4xl")
         for partido in array[1]:
             div(partido.title(), cls="border-2 border-gray-500 text-center text-xl")
+

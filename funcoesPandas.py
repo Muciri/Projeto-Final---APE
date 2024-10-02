@@ -2,7 +2,7 @@ import funcoesDominate
 import pandas as pd
 import util
 
-# exibir lista de candidatos - feito por Mariana Ludmila
+# exibir lista de candidatos - feito por Mariana Ludmilla
 def listarCandidatos(df, cod_municipio, cod_cargo):  
     try:
         print('Lista de candidatos:')
@@ -143,7 +143,7 @@ def pegarCandidatosPorIdade(df):
 # Estado civil. (CD_ESTADO_CIVIL)
 
 def contadorGraudeInstrucao(df):
-    grauDeintrucao = {
+    grauDeintrucaoPrefeito = {
         "analfabeto":0,
         "ler_escrever":0,
         "ensinoFundamentalIncompleto":0,
@@ -153,44 +153,143 @@ def contadorGraudeInstrucao(df):
         "superiorIncompleto":0,
         "superiorCompleto":0
     }
-    intrucao = df['CD_GRAU_INTRUCAO']
 
-    for grau in intrucao:
-        if grau == 1:
-            grauDeintrucao['analfabeto']+=1
-        elif grau == 2:
-            grauDeintrucao['ler_escrever']+=1
-        elif grau == 3:
-            grauDeintrucao['ensinoFundamentalIncompleto']+=1
-        elif grau == 4:
-            grauDeintrucao['ensinoFundamentalCompleto']+=1
-        elif grau == 5:
-            grauDeintrucao['ensinoMedioIncompleto']+=1
-        elif grau == 6:
-            grauDeintrucao['ensinoMedioCompleto']+=1
-        elif grau == 7:
-            grauDeintrucao['superiorIncompleto']+=1
-        elif grau == 8:
-            grauDeintrucao['superiorCompleto']+=1
-    return grauDeintrucao
+    grauDeintrucaoVicePrefeito = {
+        "analfabeto":0,
+        "ler_escrever":0,
+        "ensinoFundamentalIncompleto":0,
+        "ensinoFundamentalCompleto":0,
+        "ensinoMedioIncompleto":0,
+        "ensinoMedioCompleto":0,
+        "superiorIncompleto":0,
+        "superiorCompleto":0
+    }
+
+    grauDeintrucaoVereador = {
+        "analfabeto":0,
+        "ler_escrever":0,
+        "ensinoFundamentalIncompleto":0,
+        "ensinoFundamentalCompleto":0,
+        "ensinoMedioIncompleto":0,
+        "ensinoMedioCompleto":0,
+        "superiorIncompleto":0,
+        "superiorCompleto":0
+    }
+
+
+    intrucao = df['CD_GRAU_INSTRUCAO']
+    cargo = df["CD_CARGO"]
+
+    for id in range(len(df)):
+        if cargo[id] == 11:
+            if intrucao[id]==1:
+                grauDeintrucaoPrefeito['analfabeto']+=1
+            elif intrucao[id] == 2:
+                grauDeintrucaoPrefeito['ler_escrever']+=1
+            elif intrucao[id] == 3:
+                grauDeintrucaoPrefeito['ensinoFundamentalIncompleto']+=1
+            elif intrucao[id] == 4:
+                grauDeintrucaoPrefeito['ensinoFundamentalCompleto']+=1
+            elif intrucao[id] == 5:
+                grauDeintrucaoPrefeito['ensinoMedioIncompleto']+=1
+            elif intrucao[id] == 6:
+                grauDeintrucaoPrefeito['ensinoMedioCompleto']+=1
+            elif intrucao[id] == 7:
+                grauDeintrucaoPrefeito['superiorIncompleto']+=1
+            elif intrucao[id] == 8:
+                grauDeintrucaoPrefeito['superiorCompleto']+=1
+        elif cargo[id] == 12:
+            if intrucao[id]==1:
+                grauDeintrucaoVicePrefeito['analfabeto']+=1
+            elif intrucao[id] == 2:
+                grauDeintrucaoVicePrefeito['ler_escrever']+=1
+            elif intrucao[id] == 3:
+                grauDeintrucaoVicePrefeito['ensinoFundamentalIncompleto']+=1
+            elif intrucao[id] == 4:
+                grauDeintrucaoVicePrefeito['ensinoFundamentalCompleto']+=1
+            elif intrucao[id] == 5:
+                grauDeintrucaoVicePrefeito['ensinoMedioIncompleto']+=1
+            elif intrucao[id] == 6:
+                grauDeintrucaoVicePrefeito['ensinoMedioCompleto']+=1
+            elif intrucao[id] == 7:
+                grauDeintrucaoVicePrefeito['superiorIncompleto']+=1
+            elif intrucao[id] == 8:
+                grauDeintrucaoVicePrefeito['superiorCompleto']+=1
+        elif cargo[id] == 13:
+            if intrucao[id]==1:
+                grauDeintrucaoVereador['analfabeto']+=1
+            elif intrucao[id] == 2:
+                grauDeintrucaoVereador['ler_escrever']+=1
+            elif intrucao[id] == 3:
+                grauDeintrucaoVereador['ensinoFundamentalIncompleto']+=1
+            elif intrucao[id] == 4:
+                grauDeintrucaoVereador['ensinoFundamentalCompleto']+=1
+            elif intrucao[id] == 5:
+                grauDeintrucaoVereador['ensinoMedioIncompleto']+=1
+            elif intrucao[id] == 6:
+                grauDeintrucaoVereador['ensinoMedioCompleto']+=1
+            elif intrucao[id] == 7:
+                grauDeintrucaoVereador['superiorIncompleto']+=1
+            elif intrucao[id] == 8:
+                grauDeintrucaoVereador['superiorCompleto']+=1
+        
+    return grauDeintrucaoPrefeito, grauDeintrucaoVicePrefeito, grauDeintrucaoVereador
         
 
 def contadorGenero(df):
-    genero = {
+    generoPrefeito = {
+        "masculino":0,
+        "feminino":0
+    }
+
+    generoVicePrefeito = {
+        "masculino":0,
+        "feminino":0
+    }
+
+    generoVereador = {
         "masculino":0,
         "feminino":0
     }
     sexo = df['CD_GENERO']
+    cargo = df["CD_CARGO"]
 
-    for genEro in sexo:
-        if genEro == 2:
-             genero['masculino']+=1
-        elif genEro == 4:
-             genero['feminino']+=1
-    return genero
+    for id in range(len(df)):
+        if cargo[id] == 11:
+            if sexo[id] == 2:
+                generoPrefeito['masculino']+=1
+            elif sexo[id] == 4:
+                generoPrefeito['feminino']+=1
+        elif cargo[id] == 12:
+            if sexo[id] == 2:
+                generoVicePrefeito['masculino']+=1
+            elif sexo[id] == 4:
+                generoVicePrefeito['feminino']+=1
+        elif cargo[id] == 13:
+            if sexo[id] == 2:
+                generoVereador['masculino']+=1
+            elif sexo[id] == 4:
+                generoVereador['feminino']+=1
+    return generoPrefeito, generoVicePrefeito, generoVereador
 
 def contadorEstadoCivil(df):
-    estadoCivil = {
+    estadoCivilPrefeito = {
+        'solteiro':0,
+        'casado':0,
+        'viuvo':0,
+        'separado':0,
+        'divorciado':0
+    }
+
+    estadoCivilVicePrefeito = {
+        'solteiro':0,
+        'casado':0,
+        'viuvo':0,
+        'separado':0,
+        'divorciado':0
+    }
+
+    estadoCivilVereador = {
         'solteiro':0,
         'casado':0,
         'viuvo':0,
@@ -199,23 +298,126 @@ def contadorEstadoCivil(df):
     }
 
     estado = df['CD_ESTADO_CIVIL']
+    cargo = df["CD_CARGO"]
 
-    for civil in estado:
-        if civil == 1:
-            estadoCivil['solteiro']+=1
-        elif civil == 3:
-            estadoCivil['casado']+=1
-        elif civil == 5:
-            estadoCivil['viuvo']+=1
-        elif civil == 7:
-            estadoCivil['separado']+=1
-        elif civil == 9:
-            estadoCivil['divorciado']+=1
-    return estadoCivil
+    for id in range(len(df)):
+        if cargo[id] == 11:
+            if estado[id] == 1:
+                estadoCivilPrefeito['solteiro']+=1
+            elif estado[id] == 3:
+                estadoCivilPrefeito['casado']+=1
+            elif estado[id] == 5:
+                estadoCivilPrefeito['viuvo']+=1
+            elif estado[id] == 7:
+                estadoCivilPrefeito['separado']+=1
+            elif estado[id] == 9:
+                estadoCivilPrefeito['divorciado']+=1
+        elif cargo[id] == 12:
+            if estado[id] == 1:
+                estadoCivilVicePrefeito['solteiro']+=1
+            elif estado[id] == 3:
+                estadoCivilVicePrefeito['casado']+=1
+            elif estado[id] == 5:
+                estadoCivilVicePrefeito['viuvo']+=1
+            elif estado[id] == 7:
+                estadoCivilVicePrefeito['separado']+=1
+            elif estado[id] == 9:
+                estadoCivilVicePrefeito['divorciado']+=1
+        elif cargo[id] == 13:
+            if estado[id] == 1:
+                estadoCivilVereador['solteiro']+=1
+            elif estado[id] == 3:
+                estadoCivilVereador['casado']+=1
+            elif estado[id] == 5:
+                estadoCivilVereador['viuvo']+=1
+            elif estado[id] == 7:
+                estadoCivilVereador['separado']+=1
+            elif estado[id] == 9:
+                estadoCivilVereador['divorciado']+=1
+    return estadoCivilPrefeito, estadoCivilVicePrefeito, estadoCivilVereador
 
 
+def percentualCandidatos(df):
+    cargo = qtdCargos(df)
+    prefeitoTotal = cargo[2][0]
+    vicePrefeitoTotal = cargo[2][1]
+    vereadorTotal = cargo[2][2]
+    instrucao = contadorGraudeInstrucao(df)
+    genero = contadorGenero(df)
+    estadoCivil = contadorEstadoCivil(df)
 
-    
+    prefeito = [{
+                   "analfabeto": (instrucao[0]["analfabeto"]/prefeitoTotal)*100,
+                    "ler_escrever": (instrucao[0]["ler_escrever"]/prefeitoTotal)*100,
+                    "ensinoFundamentalIncompleto": (instrucao[0]["ensinoFundamentalIncompleto"]/prefeitoTotal)*100,
+                    "ensinoFundamentalCompleto": (instrucao[0]["ensinoFundamentalCompleto"]/prefeitoTotal)*100,
+                    "ensinoMedioIncompleto": (instrucao[0]["ensinoMedioIncompleto"]/prefeitoTotal)*100,
+                    "ensinoMedioCompleto": (instrucao[0]["ensinoMedioCompleto"]/prefeitoTotal)*100,
+                    "superiorIncompleto": (instrucao[0]["superiorIncompleto"]/prefeitoTotal)*100,
+                    "superiorCompleto": (instrucao[0]["superiorCompleto"]/prefeitoTotal)*100 },
+                    {
+                        "Categoria": "genero",
+                        "masculino": (genero[0]["masculino"]/prefeitoTotal)*100,
+                        "feminino":(genero[0]["feminino"]/prefeitoTotal)*100
+                    },
+                    {
+                        "Categoria": "estadoCivil",
+                        'solteiro': (estadoCivil[0]["solteiro"]/prefeitoTotal)*100,
+                        'casado': (estadoCivil[0]['casado']/prefeitoTotal)*100,
+                        'viuvo': (estadoCivil[0]['viuvo']/prefeitoTotal)*100,
+                        'separado': (estadoCivil[0]['separado']/prefeitoTotal)*100,
+                        'divorciado': (estadoCivil[0]['divorciado']/prefeitoTotal)*100
+                    }]
+    vicePrefeito = [
+                    {"Categoria": "instrução",
+                   "analfabeto": (instrucao[1]["analfabeto"]/vicePrefeitoTotal)*100,
+                    "ler_escrever": (instrucao[1]["ler_escrever"]/vicePrefeitoTotal)*100,
+                    "ensinoFundamentalIncompleto": (instrucao[1]["ensinoFundamentalIncompleto"]/vicePrefeitoTotal)*100,
+                    "ensinoFundamentalCompleto": (instrucao[1]["ensinoFundamentalCompleto"]/vicePrefeitoTotal)*100,
+                    "ensinoMedioIncompleto": (instrucao[1]["ensinoMedioIncompleto"]/vicePrefeitoTotal)*100,
+                    "ensinoMedioCompleto": (instrucao[1]["ensinoMedioCompleto"]/vicePrefeitoTotal)*100,
+                    "superiorIncompleto": (instrucao[1]["superiorIncompleto"]/vicePrefeitoTotal)*100,
+                    "superiorCompleto": (instrucao[1]["superiorCompleto"]/vicePrefeitoTotal)*100 },
+                    {
+                        "Categoria": "genero",
+                        "masculino": (genero[1]["masculino"]/vicePrefeitoTotal)*100,
+                        "feminino":(genero[1]["feminino"]/vicePrefeitoTotal)*100
+                    },
+                    {
+                        "Categoria": "estadoCivil",
+                        'solteiro': (estadoCivil[1]["solteiro"]/vicePrefeitoTotal)*100,
+                        'casado': (estadoCivil[1]['casado']/vicePrefeitoTotal)*100,
+                        'viuvo': (estadoCivil[1]['viuvo']/vicePrefeitoTotal)*100,
+                        'separado': (estadoCivil[1]['separado']/vicePrefeitoTotal)*100,
+                        'divorciado': (estadoCivil[1]['divorciado']/vicePrefeitoTotal)*100
+                    }
+    ]
+    vereador = [
+            {"Categoria": "instrução",
+                   "analfabeto": (instrucao[2]["analfabeto"]/vereadorTotal)*100,
+                    "ler_escrever": (instrucao[2]["ler_escrever"]/vereadorTotal)*100,
+                    "ensinoFundamentalIncompleto": (instrucao[2]["ensinoFundamentalIncompleto"]/vereadorTotal)*100,
+                    "ensinoFundamentalCompleto": (instrucao[2]["ensinoFundamentalCompleto"]/vereadorTotal)*100,
+                    "ensinoMedioIncompleto": (instrucao[2]["ensinoMedioIncompleto"]/vereadorTotal)*100,
+                    "ensinoMedioCompleto": (instrucao[2]["ensinoMedioCompleto"]/vereadorTotal)*100,
+                    "superiorIncompleto": (instrucao[2]["superiorIncompleto"]/vereadorTotal)*100,
+                    "superiorCompleto": (instrucao[2]["superiorCompleto"]/vereadorTotal)*100 },
+                    {
+                        "Categoria": "genero",
+                        "masculino": (genero[2]["masculino"]/vereadorTotal)*100,
+                        "feminino":(genero[2]["feminino"]/vereadorTotal)*100
+                    },
+                    {
+                        "Categoria": "estadoCivil",
+                        'solteiro': (estadoCivil[2]["solteiro"]/vereadorTotal)*100,
+                        'casado': (estadoCivil[2]['casado']/vereadorTotal)*100,
+                        'viuvo': (estadoCivil[2]['viuvo']/vereadorTotal)*100,
+                        'separado': (estadoCivil[2]['separado']/vereadorTotal)*100,
+                        'divorciado': (estadoCivil[2]['divorciado']/vereadorTotal)*100
+                    }
+    ]
+
+    return prefeito, vereador, vicePrefeito
 
 
 
