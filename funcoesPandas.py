@@ -46,12 +46,11 @@ def buscarCandidato(df, num_candidato):
 
 
 #interface principal do programa  - feito por Murilo Maciel
-def menuInterativo(df):
+def gerarMenuInterativo(df):
     print('=-=-=-=-=-=-=-=-=-=-=-ELEIÇÕES 2024=-=-=-=-=-=-=-=-=-=-=-')
 
     while True:
-            print('|1| fornecer a lista de candidatos \n|2| exibir as informações: nome, nome na urna, número e partido. \n|3| Gerar página HTML com estatísticas \n|4| sair')
-            op = input('o que você deseja fazer? (digite abaixo o número da ação) \n--> ')
+            op = util.painelDeEscolhas()
             match op:
                 case '1':
                     cod_municipio = input('digite o código do município: ')
@@ -61,6 +60,7 @@ def menuInterativo(df):
                     num_candidato = input('digite o número do candidato:')
                     print(buscarCandidato(df, num_candidato))
                 case '3':
+
                     funcoesDominate.criarPagina(qtdCargos(df), pegarCandidatosPorIdade(df))
                 case '4':
                     print('fim do programa...')
@@ -68,25 +68,31 @@ def menuInterativo(df):
                 case _:
                     print('opção inválida')
 
-
-#Feito por Felipe e Melquisedeque
+#region Quatidade Cargos
+                    
 def qtdCargos(df):
-    cargo = df['CD_CARGO']
+    """
+    @desc: Authenticates user & returns a token
+    @author: Melqui
+    """
+    codCargo = df['CD_CARGO']
 
-    pref = 0
-    vpref = 0
-    ver = 0
+    prefeito = 0
+    vicePrefeito = 0
+    vereador = 0
 
 
-    for id in cargo:
+    for id in codCargo:
         if id == 11:
-            pref += 1
+            prefeito += 1
         elif id == 12:
-            vpref += 1
+            vicePrefeito += 1
         elif id == 13:
-            ver += 1
+            vereador += 1
 
-    return [pref, vpref, ver]
+    return [prefeito, vicePrefeito, vereador]
+
+#region Partido por Prefeito
 
 
 def partidoPrefeito(df):
@@ -101,6 +107,7 @@ def partidoPrefeito(df):
         
     return lista_part
 
+#region Quantidade de candidatos por idade
 
 def pegarCandidatosPorIdade(df):
 
@@ -126,6 +133,90 @@ def pegarCandidatosPorIdade(df):
             
         
     return [["Até 21 anos", "Entre 22 e 40 anos", "Entre 41 e 60", "Acima de 60"],[idadeAte21, idadeEntre22_40, idadeEntre41_60, idadeAcima60]]
+
+# #Percentual de candidatos por cargo, considerando:
+# Grau de instrução; (CD_GRAU_INSTRUCAO)
+# Gênero; (CD_GENERO)
+# Estado civil. (CD_ESTADO_CIVIL)
+
+def contadorGraudeInstrucao(df):
+    grauDeintrucao = {
+        "analfabeto":0,
+        "ler_escrever":0,
+        "ensinoFundamentalIncompleto":0,
+        "ensinoFundamentalCompleto":0,
+        "ensinoMedioIncompleto":0,
+        "ensinoMedioCompleto":0,
+        "superiorIncompleto":0,
+        "superiorCompleto":0
+    }
+    intrucao = df['CD_GRAU_INTRUCAO']
+
+    for grau in intrucao:
+        if grau == 1:
+            grauDeintrucao['analfabeto']+=1
+        elif grau == 2:
+            grauDeintrucao['ler_escrever']+=1
+        elif grau == 3:
+            grauDeintrucao['ensinoFundamentalIncompleto']+=1
+        elif grau == 4:
+            grauDeintrucao['ensinoFundamentalCompleto']+=1
+        elif grau == 5:
+            grauDeintrucao['ensinoMedioIncompleto']+=1
+        elif grau == 6:
+            grauDeintrucao['ensinoMedioCompleto']+=1
+        elif grau == 7:
+            grauDeintrucao['superiorIncompleto']+=1
+        elif grau == 8:
+            grauDeintrucao['superiorCompleto']+=1
+    return grauDeintrucao
+        
+
+def contadorGenero(df):
+    genero = {
+        "masculino":0,
+        "feminino":0
+    }
+    sexo = df['CD_GENERO']
+
+    for genEro in sexo:
+        if genEro == 2:
+             genero['masculino']+=1
+        elif genEro == 4:
+             genero['feminino']+=1
+    return genero
+
+def contadorEstadoCivil(df):
+    estadoCivil = {
+        'solteiro':0,
+        'casado':0,
+        'viuvo':0,
+        'separado':0,
+        'divorciado':0
+    }
+
+    estado = df['CD_ESTADO_CIVIL']
+
+    for civil in estado:
+        if civil == 1:
+            estadoCivil['solteiro']+=1
+        elif civil == 3:
+            estadoCivil['casado']+=1
+        elif civil == 5:
+            estadoCivil['viuvo']+=1
+        elif civil == 7:
+            estadoCivil['separado']+=1
+        elif civil == 9:
+            estadoCivil['divorciado']+=1
+    return estadoCivil
+
+
+
+
+
+
+
+
 
 
 
