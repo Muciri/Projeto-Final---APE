@@ -61,7 +61,7 @@ def menuInterativo(df):
                     num_candidato = input('digite o número do candidato:')
                     print(buscarCandidato(df, num_candidato))
                 case '3':
-                    funcoesDominate.criarPagina(qtdCargos(df), pegarCandidatosPorIdade(df))
+                    funcoesDominate.criarPagina(qtdCargos(df), partidoPrefeito(df), pegarCandidatosPorIdade(df))
                 case '4':
                     print('fim do programa...')
                     break
@@ -86,7 +86,9 @@ def qtdCargos(df):
         elif id == 13:
             ver += 1
 
-    return [pref, vpref, ver]
+    return [["Quantidade de Candidatos por Cargo"],
+            ["Prefeitos", "Vice-prefeitos", "Vereadores"],
+            [pref, vpref, ver]]
 
 
 def partidoPrefeito(df):
@@ -99,7 +101,7 @@ def partidoPrefeito(df):
         if cargo[i] == 11 and part[i] not in lista_part:
             lista_part.append(part[i])
         
-    return lista_part
+    return [["Partidos com Candidatos a Prefeito"],lista_part]
 
 
 def pegarCandidatosPorIdade(df):
@@ -125,7 +127,9 @@ def pegarCandidatosPorIdade(df):
             idadeAcima60 += 1
             
         
-    return [["Até 21 anos", "Entre 22 e 40 anos", "Entre 41 e 60", "Acima de 60"],[idadeAte21, idadeEntre22_40, idadeEntre41_60, idadeAcima60]]
+    return [["Candidatos por Idade"],
+            ["Ate 21 anos", "Entre 22 e 40 anos", "Entre 41 e 60", "Acima de 60"],
+            [idadeAte21, idadeEntre22_40, idadeEntre41_60, idadeAcima60]]
 
 
 
