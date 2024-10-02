@@ -2,7 +2,7 @@ import pandas as pd
 
 df = pd.read_csv('consulta_cand_2024_PB.csv', encoding='latin1', delimiter=';')
 
-# exibir lista de candidatos - feito por Mariana Ludmila
+# exibir lista de candidatos - feito por Mariana Ludmilla
 def listar_candidatos(cod_municipio, cod_cargo):  
     try:
         print('Lista de candidatos:')
