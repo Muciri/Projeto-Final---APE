@@ -1,6 +1,15 @@
 import dominate
 from dominate.tags import *
 
+def gerarTabela(array):
+        with table(cls='table-auto text-center border-collapse'):
+            with tr(cls="bg-gray-100"): 
+                for head in array[0]:
+                    th(head.title(), cls="text-center border-solid border-2 border-gray-300 px-5")
+            for linha in array[1:][:3]:
+                with tr(cls="text-center"):
+                    for palavra in linha:
+                        td(palavra, cls="text-center border-solid border-2 border-gray-300 px-5")
 #cria a pagina HTMl
 def criarPagina(qtdCargos,partidoPrefeito, idadeCandidato):
 
@@ -24,9 +33,6 @@ def criarPagina(qtdCargos,partidoPrefeito, idadeCandidato):
             gerarTabela(cargos)
             gerarGrade(partido)
             gerarTabela(idade)
-    #     with div():
-    #         attr(cls='body')
-    #         p('Lorem ipsum..')
 
     doc.write(str(dom))
     
