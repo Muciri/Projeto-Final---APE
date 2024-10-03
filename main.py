@@ -1,16 +1,14 @@
 import pandas as pd
-import funcoesPandas
-import matplotlib.pylab as plt
+import funcoesPandas #Importa a pagina com as funcoes pandas
+
+#Pagina principal que roda todo o código
+
 
 
 
 df = pd.read_csv('consulta_cand_2024_PB.csv', encoding='latin1', delimiter=';')
 
-#funcoesPandas.gerarMenuInterativo(df)
-
-prefeito, vicePrefeito, vereador = funcoesPandas.percentualCandidatos(df)
-names  = list(prefeito[0].keys())
-values = list(prefeito[0].values())
+funcoesPandas.gerarMenuInterativo(df)
 
 
-plt.bar(range(len(prefeito[0])), values, tick_label=names)
+

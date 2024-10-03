@@ -1,6 +1,8 @@
-import funcoesDominate
+import funcoesDominate #importa a pagina com as funcoes dominate
 import pandas as pd
-import util
+import util #importa a pagina util
+
+#Pagina com todas as funções que usam a biblioteca pandas
 
 # exibir lista de candidatos - feito por Mariana Ludmilla
 def listarCandidatos(df, cod_municipio, cod_cargo):  
@@ -60,7 +62,7 @@ def gerarMenuInterativo(df):
                     num_candidato = input('digite o número do candidato:')
                     print(buscarCandidato(df, num_candidato))
                 case '3':
-                    funcoesDominate.criarPagina(qtdCargos(df), partidoPrefeito(df), pegarCandidatosPorIdade(df))
+                    funcoesDominate.criarPagina(qtdCargos(df), partidoPrefeito(df), pegarCandidatosPorIdade(df), percentualCandidatos(df))
                 case '4':
                     print('fim do programa...')
                     break
@@ -71,7 +73,7 @@ def gerarMenuInterativo(df):
                     
 def qtdCargos(df):
     """
-    @desc: Authenticates user & returns a token
+    @desc: Retorna a quantidade de candidatos por cargo
     @author: Melqui
     """
     codCargo = df['CD_CARGO']
@@ -97,6 +99,10 @@ def qtdCargos(df):
 
 
 def partidoPrefeito(df):
+    """
+    @desc: Retorna  os partidos que tem candidatos a prefeito 
+    @author: Melqui
+    """
     lista_part = []
     
     cargo = df['CD_CARGO']
@@ -111,6 +117,11 @@ def partidoPrefeito(df):
 #region Quantidade de candidatos por idade
 
 def pegarCandidatosPorIdade(df):
+     
+    """
+    @desc: Retornar os candidatos em uma faixa de idade
+    @author: Felipe
+    """
 
     idadeAte21 = 0
     idadeEntre22_40  = 0
@@ -143,6 +154,10 @@ def pegarCandidatosPorIdade(df):
 # Estado civil. (CD_ESTADO_CIVIL)
 
 def contadorGraudeInstrucao(df):
+    """
+    @desc: Retorna dicionarios com o grau de instrucao para cada cargo
+    @author: Felipe
+    """
     grauDeintrucaoPrefeito = {
         "analfabeto":0,
         "ler_escrever":0,
@@ -237,6 +252,11 @@ def contadorGraudeInstrucao(df):
         
 
 def contadorGenero(df):
+    """
+    @desc: Retorna dicionarios com o total de homens e mulheres para cada cargo
+    @author: Felipe
+    """
+
     generoPrefeito = {
         "masculino":0,
         "feminino":0
@@ -273,6 +293,11 @@ def contadorGenero(df):
     return generoPrefeito, generoVicePrefeito, generoVereador
 
 def contadorEstadoCivil(df):
+
+    """
+    @desc: Retorna dicionarios com a condicao do estado civil para cada cargo
+    @author: Felipe
+    """
     estadoCivilPrefeito = {
         'solteiro':0,
         'casado':0,
@@ -338,6 +363,10 @@ def contadorEstadoCivil(df):
 
 
 def percentualCandidatos(df):
+    """
+    @desc: Calcula o percentual de cada cargo para genero, grau de instrucao e estado civil
+    @author: Felipe
+    """
     cargo = qtdCargos(df)
     prefeitoTotal = cargo[2][0]
     vicePrefeitoTotal = cargo[2][1]
@@ -346,7 +375,7 @@ def percentualCandidatos(df):
     genero = contadorGenero(df)
     estadoCivil = contadorEstadoCivil(df)
 
-    prefeito = [{
+    prefeito = [{  
                    "analfabeto": (instrucao[0]["analfabeto"]/prefeitoTotal)*100,
                     "ler_escrever": (instrucao[0]["ler_escrever"]/prefeitoTotal)*100,
                     "ensinoFundamentalIncompleto": (instrucao[0]["ensinoFundamentalIncompleto"]/prefeitoTotal)*100,
@@ -356,12 +385,12 @@ def percentualCandidatos(df):
                     "superiorIncompleto": (instrucao[0]["superiorIncompleto"]/prefeitoTotal)*100,
                     "superiorCompleto": (instrucao[0]["superiorCompleto"]/prefeitoTotal)*100 },
                     {
-                        "Categoria": "genero",
+                        
                         "masculino": (genero[0]["masculino"]/prefeitoTotal)*100,
                         "feminino":(genero[0]["feminino"]/prefeitoTotal)*100
                     },
                     {
-                        "Categoria": "estadoCivil",
+                       
                         'solteiro': (estadoCivil[0]["solteiro"]/prefeitoTotal)*100,
                         'casado': (estadoCivil[0]['casado']/prefeitoTotal)*100,
                         'viuvo': (estadoCivil[0]['viuvo']/prefeitoTotal)*100,
@@ -369,7 +398,7 @@ def percentualCandidatos(df):
                         'divorciado': (estadoCivil[0]['divorciado']/prefeitoTotal)*100
                     }]
     vicePrefeito = [
-                    {"Categoria": "instrução",
+                    {
                    "analfabeto": (instrucao[1]["analfabeto"]/vicePrefeitoTotal)*100,
                     "ler_escrever": (instrucao[1]["ler_escrever"]/vicePrefeitoTotal)*100,
                     "ensinoFundamentalIncompleto": (instrucao[1]["ensinoFundamentalIncompleto"]/vicePrefeitoTotal)*100,
@@ -379,12 +408,11 @@ def percentualCandidatos(df):
                     "superiorIncompleto": (instrucao[1]["superiorIncompleto"]/vicePrefeitoTotal)*100,
                     "superiorCompleto": (instrucao[1]["superiorCompleto"]/vicePrefeitoTotal)*100 },
                     {
-                        "Categoria": "genero",
+                       
                         "masculino": (genero[1]["masculino"]/vicePrefeitoTotal)*100,
                         "feminino":(genero[1]["feminino"]/vicePrefeitoTotal)*100
                     },
                     {
-                        "Categoria": "estadoCivil",
                         'solteiro': (estadoCivil[1]["solteiro"]/vicePrefeitoTotal)*100,
                         'casado': (estadoCivil[1]['casado']/vicePrefeitoTotal)*100,
                         'viuvo': (estadoCivil[1]['viuvo']/vicePrefeitoTotal)*100,
@@ -393,7 +421,7 @@ def percentualCandidatos(df):
                     }
     ]
     vereador = [
-            {"Categoria": "instrução",
+            {
                    "analfabeto": (instrucao[2]["analfabeto"]/vereadorTotal)*100,
                     "ler_escrever": (instrucao[2]["ler_escrever"]/vereadorTotal)*100,
                     "ensinoFundamentalIncompleto": (instrucao[2]["ensinoFundamentalIncompleto"]/vereadorTotal)*100,
@@ -403,12 +431,10 @@ def percentualCandidatos(df):
                     "superiorIncompleto": (instrucao[2]["superiorIncompleto"]/vereadorTotal)*100,
                     "superiorCompleto": (instrucao[2]["superiorCompleto"]/vereadorTotal)*100 },
                     {
-                        "Categoria": "genero",
                         "masculino": (genero[2]["masculino"]/vereadorTotal)*100,
                         "feminino":(genero[2]["feminino"]/vereadorTotal)*100
                     },
                     {
-                        "Categoria": "estadoCivil",
                         'solteiro': (estadoCivil[2]["solteiro"]/vereadorTotal)*100,
                         'casado': (estadoCivil[2]['casado']/vereadorTotal)*100,
                         'viuvo': (estadoCivil[2]['viuvo']/vereadorTotal)*100,

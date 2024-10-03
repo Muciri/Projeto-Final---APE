@@ -1,11 +1,13 @@
 import datetime
 
+#Calcula idade pela data de nascimento
 def pegarIdade(dataNascimento):
     dia, mes, ano = map(int, dataNascimento.split('/'))
     hoje = datetime.date.today()
     idade = hoje.year - ano - ((hoje.month, hoje.day) < (mes, dia))
     return idade
 
+#Gera um painel de escolhas
 def painelDeEscolhas():
     print('''
         |1| fornecer a lista de candidatos 
