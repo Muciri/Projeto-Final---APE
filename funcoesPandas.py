@@ -18,7 +18,7 @@ def listarCandidatos(df, cod_municipio, cod_cargo):
                     Nome: {row['NM_CANDIDATO']}
                     Nome na urna: {row['NM_URNA_CANDIDATO']}
                     Número: {row['NR_CANDIDATO']}
-                    Partido: {row['NM_PARTIDO']}S
+                    Partido: {row['NM_PARTIDO']}
                 ''')
             return '\n'.join(resultado)
         else:

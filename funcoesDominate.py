@@ -10,7 +10,7 @@ def criarPagina(qtdCargos,partidoPrefeito, idadeCandidato, cargoPercentual):
     @author: Melquisedeque
     """
     dom = dominate.document(title='Eleicao')
-    doc = open("index.html", "w") 
+    doc = open("index.html", "w", encoding="utf8") 
 
 
 
@@ -42,6 +42,7 @@ def criarPagina(qtdCargos,partidoPrefeito, idadeCandidato, cargoPercentual):
 
 
     doc.write(str(dom))
+    doc.close()
     
 
 def gerarTabela(array):
